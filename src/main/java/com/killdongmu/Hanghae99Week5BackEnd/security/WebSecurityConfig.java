@@ -41,7 +41,7 @@ public class WebSecurityConfig {
         return (web)->web.ignoring()
                 .antMatchers("/h2-console/**", "/favicon.ico");
     }
-    
+
 
     @Bean
     @Order(SecurityProperties.BASIC_AUTH_ORDER)
