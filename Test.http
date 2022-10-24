@@ -1,0 +1,94 @@
+GET http://localhost:8080/api/reissue
+Accept: application/json
+Refresh_Token:
+
+###
+POST http://localhost:8080/api/members/login
+Content-Type: application/json
+
+{
+  "username": "ayi1234",
+  "password": "ayi1234"
+}
+
+###
+POST http://localhost:8080/api/members/signup
+Content-Type: application/json
+
+{
+  "username": "sungho123",
+  "password": "aasd1464",
+  "email": "ayi1234@test.test",
+  "passwordConfirm": "aasd1464"
+}
+
+###
+GET http://localhost:8080/api/boards/list
+Accept: application/json
+
+###
+GET http://localhost:8080/api/boards/detail/1
+Accept: application/json
+
+###
+POST http://localhost:8080/api/boards/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJheWkxMjM0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjYwMjcyOH0.dY4tBOnHqMb_5cIPPOLBBcmNyUN1FWtuTWsRCwInjII
+
+{
+  "title": "JPA Basic CRUD API3",
+  "content": "JPA333"
+}
+
+###
+PUT http://localhost:8080/api/boards/update/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJheWkxMjM0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjU5NTA3NH0.D25rnufwWs8DdltWvRGOrvlfb6jIYeJMJJ6kMh5tbt0
+
+
+{
+  "title": "Spring Data JPA update11",
+  "content": "JPA update11"
+}
+
+###
+DELETE http://localhost:8080/api/boards/delete/3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzWIiOiJheWkxMjM0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjU4OTQ5NX0.NUrs0Aad8sAihCp5oANosFyJXTp8Y92O886bf2IJmkc
+
+###
+GET http://localhost:8080/api/boards/1/comments
+Accept: application/json
+
+###
+GET http://localhost:8080/api/boards/comments/3
+Accept: application/json
+
+###
+POST http://localhost:8080/api/boards/1/comments/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJheWkxMjM0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjU5NTA3NH0.D25rnufwWs8DdltWvRGOrvlfb6jIYeJMJJ6kMh5tbt0
+
+{
+  "comment": "Spring Basic CRUD API Comment3"
+}
+
+###
+PUT http://localhost:8080/api/boards/comments/update/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJheWkxMjM0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjU5NTA3NH0.D25rnufwWs8DdltWvRGOrvlfb6jIYeJMJJ6kMh5tbt0
+
+{
+  "comment": "Spring Data JPA Comment update"
+}
+
+###
+DELETE http://localhost:8080/api/boards/comments/delete/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJheWkxMjM0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjU5NTA3NH0.D25rnufwWs8DdltWvRGOrvlfb6jIYeJMJJ6kMh5tbt0
+
+
+###
+POST http://localhost:8080/api/heart/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJheWkxMjM0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjU5NTA3NH0.D25rnufwWs8DdltWvRGOrvlfb6jIYeJMJJ6kMh5tbt0
