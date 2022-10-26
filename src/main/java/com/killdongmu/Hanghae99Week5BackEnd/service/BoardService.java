@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,7 +31,27 @@ public class BoardService {
 
     public ResponseEntity<?> findBoardList() {
 
-        List<Boards> boardList = boardRepository.findAllByOrderByCreatedAtDesc();
+        List<Boards> findBoardList = boardRepository.findAllByOrderByCreatedAtDesc();
+
+        List<BoardListResponseDto> boardList = new ArrayList<>();
+
+        for (Boards board : findBoardList) {
+            Long countComment = commentRepository.countByBoard(board);
+            Long countHeart = heartRepository.countByBoard(board);
+
+            BoardListResponseDto boardListResponseDto = BoardListResponseDto.builder().
+                    boardId(board.getBoardId()).
+                    title(board.getTitle()).
+                    content(board.getContent()).
+                    countComment(countComment).
+                    countHeart(countHeart).
+                    username(board.getMember().getUsername()).
+                    createdAt(board.getCreatedAt()).
+                    modifiedAt(board.getModifiedAt()).
+                    build();
+
+            boardList.add(boardListResponseDto);
+        }
 
         return new ResponseEntity<>(boardList, HttpStatus.OK);
 
@@ -38,7 +59,28 @@ public class BoardService {
 
     public ResponseEntity<?> findBoard(Long boardId) {
 
-        Boards board = boardRepository.findById(boardId).orElseThrow(RuntimeException::new);
+        Boards findBoard = boardRepository.findById(boardId).orElseThrow(RuntimeException::new);
+/*        List<Comments> commentsList = commentRepository.findAllByBoard(findBoard);
+
+        List<Long> commentIdList = new ArrayList<>();
+        List<String> commentList = new ArrayList<>();
+        List<String> commentMemberList = new ArrayList<>();
+
+        for (Comments comments : commentsList) {
+            commentIdList.add(comments.getCommentId());
+            commentList.add(comments.getComment());
+            commentMemberList.add(comments.getMember().getUsername());
+        }*/
+
+        BoardResponseDto board = BoardResponseDto.builder().
+                board_id(findBoard.getBoardId()).
+                title(findBoard.getTitle()).
+                content(findBoard.getContent()).
+                username(findBoard.getMember().getUsername()).
+                commentList(findBoard.getCommentList()).
+                createdAt(findBoard.getCreatedAt()).
+                modifiedAt(findBoard.getModifiedAt()).
+                build();
 
         return new ResponseEntity<>(board, HttpStatus.OK);
     }
@@ -62,7 +104,7 @@ public class BoardService {
         // Boards board = boardRepository.findById(boardId).orElseThrow(() -> new NullPointerException());
         Boards board = boardRepository.findById(boardId).orElseThrow(NullPointerException::new);
 
-        if(!board.getMember().getMember_id().equals(members.getMember_id()))
+        if(!board.getMember().getMemberId().equals(members.getMemberId()))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         board.updateBoard(boardRequestDto.getTitle(), boardRequestDto.getContent());
@@ -70,6 +112,7 @@ public class BoardService {
         return new ResponseEntity<>(board, HttpStatus.OK);
     }
 
+    @Transactional
     public ResponseEntity<?> deleteBoard(Long boardId, Members members) {
 
         // 게시글 삭제할 때 해당 게시글의 댓글, 좋아요 삭제
@@ -77,7 +120,7 @@ public class BoardService {
         List<Comments> commentList = commentRepository.findAllByBoard(board);
         List<Hearts> heartList = heartRepository.findAllByBoard(board);
 
-        if(!board.getMember().getMember_id().equals(members.getMember_id()))
+        if(!board.getMember().getMemberId().equals(members.getMemberId()))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         if (commentList.size() > 0) {

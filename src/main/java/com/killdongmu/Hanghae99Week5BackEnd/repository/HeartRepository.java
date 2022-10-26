@@ -11,6 +11,8 @@ public interface HeartRepository extends JpaRepository<Hearts, Long> {
 
     List<Hearts> findAllByBoard(Boards board);
 
+    List<Hearts> findAllByMember(Members member);
+
     // 게시글 삭제시 좋아요 삭제
     void deleteByBoard(Boards board);
 
@@ -20,5 +22,5 @@ public interface HeartRepository extends JpaRepository<Hearts, Long> {
     // 좋아요 삭제
     void deleteByBoardAndMember(Boards board, Members members);
 
-
+    Long countByBoard(Boards board);
 }

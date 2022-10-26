@@ -7,8 +7,8 @@ POST http://localhost:8080/api/members/login
 Content-Type: application/json
 
 {
-  "username": "ayi1234",
-  "password": "ayi1234"
+  "username": "hyundo12",
+  "password": "park123"
 }
 
 ###
@@ -16,10 +16,10 @@ POST http://localhost:8080/api/members/signup
 Content-Type: application/json
 
 {
-  "username": "sungho123",
-  "password": "aasd1464",
-  "email": "ayi1234@test.test",
-  "passwordConfirm": "aasd1464"
+  "username": "hyundo12",
+  "password": "park123",
+  "email": "ato88@naver.com",
+  "passwordConfirm": "park123"
 }
 
 ###
@@ -27,34 +27,34 @@ GET http://localhost:8080/api/boards/list
 Accept: application/json
 
 ###
-GET http://localhost:8080/api/boards/detail/1
+GET http://localhost:8080/api/boards/detail/3
 Accept: application/json
 
 ###
 POST http://localhost:8080/api/boards/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJheWkxMjM0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjYwMjcyOH0.dY4tBOnHqMb_5cIPPOLBBcmNyUN1FWtuTWsRCwInjII
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVuZG8xMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjY3MjEwODF9.B5EhBoas20hQPi_5OU47wX7Q9YdDGgUf86nVVAuf2bQ
 
 {
-  "title": "JPA Basic CRUD API3",
-  "content": "JPA333"
+  "title": "자담치킨이다333",
+  "content": "자담치킨을 시켜먹겠다. 왜냐하면 어제 성호님과 지영님이 치킨먹방을해주셨기때문이다333."
 }
 
 ###
-PUT http://localhost:8080/api/boards/update/1
+POST http://localhost:8080/api/boards/update/12
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJheWkxMjM0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjU5NTA3NH0.D25rnufwWs8DdltWvRGOrvlfb6jIYeJMJJ6kMh5tbt0
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVuZG8xMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjY3MTg2MDB9.ng3Na4tIopVey3rRy96k4VQstoTKAHg_FTJHm05_VoE
 
 
 {
-  "title": "Spring Data JPA update11",
-  "content": "JPA update11"
+  "title": "자담치킨 맵슐랭",
+  "content": "나는 파채와 함께먹었지 하남자? ㄴㄴ 잘먹는거"
 }
 
 ###
-DELETE http://localhost:8080/api/boards/delete/3
+DELETE http://localhost:8080/api/boards/delete/14
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzWIiOiJheWkxMjM0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjU4OTQ5NX0.NUrs0Aad8sAihCp5oANosFyJXTp8Y92O886bf2IJmkc
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVuZG8xMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjY3Mjg2MzV9.Qxq1vk6wCFef496uSOSBugFzgo6Vr04so9xS9PIzcl8
 
 ###
 GET http://localhost:8080/api/boards/1/comments
@@ -65,27 +65,27 @@ GET http://localhost:8080/api/boards/comments/3
 Accept: application/json
 
 ###
-POST http://localhost:8080/api/boards/1/comments/create
+POST http://localhost:8080/api/boards/14/comments/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJheWkxMjM0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjU5NTA3NH0.D25rnufwWs8DdltWvRGOrvlfb6jIYeJMJJ6kMh5tbt0
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVuZG8xMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjY3MjEwODF9.B5EhBoas20hQPi_5OU47wX7Q9YdDGgUf86nVVAuf2bQ
 
 {
-  "comment": "Spring Basic CRUD API Comment3"
+  "comment": "하남자 특2: 마일드로 시킴"
 }
 
 ###
 PUT http://localhost:8080/api/boards/comments/update/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJheWkxMjM0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjU5NTA3NH0.D25rnufwWs8DdltWvRGOrvlfb6jIYeJMJJ6kMh5tbt0
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVuZG8xMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjY2OTgxMjJ9.56yJGismSFAyfdlo8TyHymwKFJqkBh-JGcRhmNtkMBw
 
 {
   "comment": "Spring Data JPA Comment update"
 }
 
 ###
-DELETE http://localhost:8080/api/boards/comments/delete/1
+DELETE http://localhost:8080/api/boards/comments/delete/2
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJheWkxMjM0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjU5NTA3NH0.D25rnufwWs8DdltWvRGOrvlfb6jIYeJMJJ6kMh5tbt0
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVuZG8xMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjY3MTAyNDR9.s42cY1TWKIMPA9az8tgxwf5chzowbq7HYy-zzODhR28
 
 
 ###

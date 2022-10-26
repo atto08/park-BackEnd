@@ -31,5 +31,7 @@ public class HeartService {
             Hearts heart = new Hearts(member, board);
             heartRepository.save(heart);
         }
+
     }
+
 }

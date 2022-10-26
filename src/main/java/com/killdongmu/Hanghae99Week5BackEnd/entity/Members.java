@@ -16,10 +16,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Members extends Timestamped {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id", nullable = false)
-    private Long member_id;
+    private Long memberId;
 
     @Column(name = "username")
     private String username;

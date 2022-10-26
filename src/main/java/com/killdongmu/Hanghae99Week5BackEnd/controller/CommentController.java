@@ -15,31 +15,31 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @GetMapping("/{board-id}/comments")
+    @GetMapping(value = "/{board-id}/comments")
     public ResponseEntity<?> commentList(@PathVariable(name = "board-id") Long boardId) {
         return commentService.findCommentList(boardId);
     }
 
-    @GetMapping("/comments/{comment-id}")
+    @GetMapping(value = "/comments/{comment-id}")
     public ResponseEntity<?> commentInfo(@PathVariable(name = "comment-id") Long commentId) {
         return commentService.findComment(commentId);
     }
 
-    @PostMapping("/{board-id}/comments/create")
+    @PostMapping(value ="/{board-id}/comments/create")
     public ResponseEntity<?> createComment(@RequestBody CommentRequestDto commentRequestDto,
                                            @PathVariable(name = "board-id") Long boardId,
                                            @AuthenticationPrincipal MemberDetails memberDetails) {
         return commentService.createComment(commentRequestDto, boardId, memberDetails.getMember());
     }
 
-    @PutMapping("/comments/update/{comment-id}")
+    @PutMapping(value = "/comments/update/{comment-id}")
     public ResponseEntity<?> updateComment(@RequestBody CommentRequestDto commentRequestDto,
                                            @PathVariable(name = "comment-id") Long commentId,
                                            @AuthenticationPrincipal MemberDetails memberDetails) {
         return commentService.updateComment(commentRequestDto, commentId, memberDetails.getMember());
     }
 
-    @DeleteMapping("/comments/delete/{comment-id}")
+    @DeleteMapping(value = "/comments/delete/{comment-id}")
     public ResponseEntity<?> deleteComment(@PathVariable(name = "comment-id") Long commentId,
                                            @AuthenticationPrincipal MemberDetails memberDetails) {
         return commentService.deleteComment(commentId, memberDetails.getMember());

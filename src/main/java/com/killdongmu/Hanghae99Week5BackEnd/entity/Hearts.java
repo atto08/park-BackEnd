@@ -10,10 +10,11 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 public class Hearts {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "heart_id", nullable = false)
-    private Long heart_id;
+    private Long heartId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -18,8 +17,4 @@ public class BoardRequestDto {
 
     @NotBlank(message = "게시글 내용을 입력해주세요.")
     private String content;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime modifiedAt;
 }

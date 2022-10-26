@@ -54,7 +54,7 @@ public class CommentService {
 
         Comments comment = commentRepository.findById(commentId).orElseThrow((NullPointerException::new));
 
-        if(!comment.getMember().getMember_id().equals(members.getMember_id()))
+        if(!comment.getMember().getMemberId().equals(members.getMemberId()))
             throw new RuntimeException("작성자와 로그인 사용자가 일치하지 않습니다.");
 
         comment.updateComment(commentRequestDto.getComment());
@@ -66,7 +66,7 @@ public class CommentService {
 
         Comments comment = commentRepository.findById(commentId).orElseThrow((NullPointerException::new));
 
-        if(!comment.getMember().getMember_id().equals(members.getMember_id()))
+        if(!comment.getMember().getMemberId().equals(members.getMemberId()))
             throw new RuntimeException("작성자와 로그인 사용자가 일치하지 않습니다.");
 
         commentRepository.deleteById(commentId);

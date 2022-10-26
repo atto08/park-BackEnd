@@ -62,6 +62,8 @@ public class MemberService implements UserDetailsService {
     @Transactional
     public ResponseEntity<?> createMember(SignupRequestDto signupRequestDto) {
 
+        System.out.println(signupRequestDto.getUsername());
+
         if(memberRepository.existsByUsername(signupRequestDto.getUsername())) {
             throw new RuntimeException("이미 존재하는 아이디입니다");
         }
@@ -100,13 +102,14 @@ public class MemberService implements UserDetailsService {
 
         // refresh 토큰 db 저장
         RefreshToken refreshToken = RefreshToken.builder()
-                // Key 검증된 유저 이름
+        // Key 검증된 유저 이름
                 .key(authentication.getName())
-                // value 문자열로 된 리스레쉬 토큰
+        // value 문자열로 된 리스레쉬 토큰
                 .value(tokenDto.getRefreshToken())
                 .build();
 
         refreshTokenRepository.save(refreshToken);
+//        refreshTokenRepository.save(refreshToken);
         // refresh 토큰 db 저장 끝
 
         // 클라이언트 발급용 토큰 헤더에 삼입
@@ -117,11 +120,6 @@ public class MemberService implements UserDetailsService {
         httpHeaders.add("RefreshToken", tokenDto.getRefreshToken());
         httpHeaders.add("username",member.getUsername());
 
-        System.out.println(httpHeaders.get(JwtFilter.AUTHORIZATION_HEADER));
-
-        System.out.println(httpHeaders.get("RefreshToken"));
-
-        System.out.println("login 성공");
         // 토큰 발급
         return new ResponseEntity<>(ResponseDto.success(member), httpHeaders, HttpStatus.OK);
     }

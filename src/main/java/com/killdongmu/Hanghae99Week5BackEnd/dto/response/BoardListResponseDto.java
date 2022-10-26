@@ -13,11 +13,17 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class BoardListResponseDto {
 
-    private Long board_id;
+    private Long boardId;
 
     private String title;
 
     private String content;
+
+    private Long countComment;
+
+    private Long countHeart;
+
+    private String username;
 
     private LocalDateTime createdAt;
 
