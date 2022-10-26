@@ -26,6 +26,9 @@ public class Boards extends Timestamped {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @Column(nullable = false)
+    private String file;
+
     @Column(name = "content", nullable = false)
     private String content;
 

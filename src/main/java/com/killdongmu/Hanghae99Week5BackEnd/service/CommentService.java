@@ -41,6 +41,7 @@ public class CommentService {
         Comments comment = Comments.builder().
                 comment(commentRequestDto.getComment()).
                 board(boardRepository.findById(boardId).orElseThrow(RuntimeException::new)).
+                username(members.getUsername()).
                 member(members).
                 build();
 

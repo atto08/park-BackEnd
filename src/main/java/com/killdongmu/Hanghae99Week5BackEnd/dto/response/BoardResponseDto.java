@@ -5,7 +5,6 @@ import com.killdongmu.Hanghae99Week5BackEnd.entity.Comments;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
 
 @Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 public class BoardResponseDto {
 
@@ -21,11 +19,15 @@ public class BoardResponseDto {
 
     private String title;
 
+    private String file;
+
     private String content;
 
     private List<Comments> commentList;
 
     private String username;
+
+    private List<String> heartedUsernameList;
 
     private LocalDateTime createdAt;
 

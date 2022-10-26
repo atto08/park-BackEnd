@@ -33,22 +33,22 @@ Accept: application/json
 ###
 POST http://localhost:8080/api/boards/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVuZG8xMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjY3MjEwODF9.B5EhBoas20hQPi_5OU47wX7Q9YdDGgUf86nVVAuf2bQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVuZG8xMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjY3OTc1NzF9.Na3YOMXYNcmDZrjGm3UY9F_LRP73ouFqu55vACSQ5Uk
 
 {
-  "title": "자담치킨이다333",
-  "content": "자담치킨을 시켜먹겠다. 왜냐하면 어제 성호님과 지영님이 치킨먹방을해주셨기때문이다333."
+  "title": "꿈이야기",
+  "content": "오늘 꿈에서도 코딩을했다. 현실과 꿈이 분간이 안되고있다.."
 }
 
 ###
-POST http://localhost:8080/api/boards/update/12
+PUT http://localhost:8080/api/boards/update/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVuZG8xMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjY3MTg2MDB9.ng3Na4tIopVey3rRy96k4VQstoTKAHg_FTJHm05_VoE
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVuZG8xMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjY3OTg4MTF9.b4NM4AAWFcOkWDL-MjedimxeWEsYvR2Krc_NM6KONmg
 
 
 {
-  "title": "자담치킨 맵슐랭",
-  "content": "나는 파채와 함께먹었지 하남자? ㄴㄴ 잘먹는거"
+  "title": "어 ? 옙흐다",
+  "content": "준이에용. ㅎㅎㅎㅎ"
 }
 
 ###
@@ -65,12 +65,12 @@ GET http://localhost:8080/api/boards/comments/3
 Accept: application/json
 
 ###
-POST http://localhost:8080/api/boards/14/comments/create
+POST http://localhost:8080/api/boards/3/comments/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVuZG8xMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjY3MjEwODF9.B5EhBoas20hQPi_5OU47wX7Q9YdDGgUf86nVVAuf2bQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVuZG8xMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjY4MDQxMjR9.G6Vu9KSqO5bSW-kPcUjqyAuk7X5YqyHJeoC3CeRRycs
 
 {
-  "comment": "하남자 특2: 마일드로 시킴"
+  "comment": "갓성호 갓소희 갓연일 갓성민 하현도 ㄱㄱㄱ"
 }
 
 ###

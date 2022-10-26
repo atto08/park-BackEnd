@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/boards")
@@ -26,8 +28,8 @@ public class BoardController {
     }
 
     @PostMapping(value ="/create")
-    public ResponseEntity<?> createBoard(@RequestBody BoardRequestDto boardRequestDto,
-                                         @AuthenticationPrincipal MemberDetails memberDetails){
+    public ResponseEntity<?> createBoard(@ModelAttribute BoardRequestDto boardRequestDto,
+                                         @AuthenticationPrincipal MemberDetails memberDetails) throws IOException {
         return boardService.createBoard(boardRequestDto, memberDetails.getMember());
     }
 

@@ -11,11 +11,13 @@ import com.killdongmu.Hanghae99Week5BackEnd.repository.BoardRepository;
 import com.killdongmu.Hanghae99Week5BackEnd.repository.CommentRepository;
 import com.killdongmu.Hanghae99Week5BackEnd.repository.HeartRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +25,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardService {
 
+    @Value("${cloud.aws.s3.dir}")
+    private String dir;
     private final BoardRepository boardRepository;
 
     private final CommentRepository commentRepository;
 
     private final HeartRepository heartRepository;
+
+    private final S3UploadService s3UploadService;
 
     public ResponseEntity<?> findBoardList() {
 
@@ -42,6 +48,7 @@ public class BoardService {
             BoardListResponseDto boardListResponseDto = BoardListResponseDto.builder().
                     boardId(board.getBoardId()).
                     title(board.getTitle()).
+                    file(board.getFile()).
                     content(board.getContent()).
                     countComment(countComment).
                     countHeart(countHeart).
@@ -60,24 +67,22 @@ public class BoardService {
     public ResponseEntity<?> findBoard(Long boardId) {
 
         Boards findBoard = boardRepository.findById(boardId).orElseThrow(RuntimeException::new);
-/*        List<Comments> commentsList = commentRepository.findAllByBoard(findBoard);
+        List<Hearts> heartList = heartRepository.findAllByBoard(findBoard);
 
-        List<Long> commentIdList = new ArrayList<>();
-        List<String> commentList = new ArrayList<>();
-        List<String> commentMemberList = new ArrayList<>();
+        List<String> heartedUsernameList = new ArrayList<>();
 
-        for (Comments comments : commentsList) {
-            commentIdList.add(comments.getCommentId());
-            commentList.add(comments.getComment());
-            commentMemberList.add(comments.getMember().getUsername());
-        }*/
+        for (Hearts hearts : heartList) {
+            heartedUsernameList.add(hearts.getMember().getUsername());
+        }
 
         BoardResponseDto board = BoardResponseDto.builder().
                 board_id(findBoard.getBoardId()).
                 title(findBoard.getTitle()).
+                file(findBoard.getFile()).
                 content(findBoard.getContent()).
                 username(findBoard.getMember().getUsername()).
                 commentList(findBoard.getCommentList()).
+                heartedUsernameList(heartedUsernameList).
                 createdAt(findBoard.getCreatedAt()).
                 modifiedAt(findBoard.getModifiedAt()).
                 build();
@@ -85,10 +90,11 @@ public class BoardService {
         return new ResponseEntity<>(board, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> createBoard(BoardRequestDto boardRequestDto, Members members) {
+    public ResponseEntity<?> createBoard(BoardRequestDto boardRequestDto, Members members) throws IOException {
 
         Boards board = Boards.builder().
                 title(boardRequestDto.getTitle()).
+                file(s3UploadService.upload(boardRequestDto.getFile(), dir)).
                 content(boardRequestDto.getContent()).
                 member(members).
                 build();
