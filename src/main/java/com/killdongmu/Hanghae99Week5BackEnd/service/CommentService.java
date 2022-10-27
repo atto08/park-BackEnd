@@ -22,16 +22,20 @@ public class CommentService {
     private final CommentRepository commentRepository;
     public ResponseEntity<?> findCommentList(Long boardId) {
 
-        Boards board = boardRepository.findById(boardId).orElseThrow(RuntimeException::new);
+        Boards board = boardRepository.findById(boardId).orElseThrow(
+                () -> new NullPointerException("게시글이 존재하지 않습니다.")
+        );
 
-        List<Comments> commentList = commentRepository.findCommentsByBoardOrderByCreatedAtDesc(board);
+        List<Comments> commentList = commentRepository.findCommentsByBoardOrderByCommentIdDesc(board);
 
         return new ResponseEntity<>(commentList, HttpStatus.OK);
     }
 
     public ResponseEntity<?> findComment(Long commentId) {
 
-        Comments comment = commentRepository.findById(commentId).orElse(null);
+        Comments comment = commentRepository.findById(commentId).orElseThrow(
+                () -> new NullPointerException("댓글이 존재하지 않습니다.")
+        );
 
         return new ResponseEntity<>(comment, HttpStatus.OK);
     }
@@ -53,10 +57,12 @@ public class CommentService {
     @Transactional
     public ResponseEntity<?> updateComment(CommentRequestDto commentRequestDto, Long commentId, Members members) {
 
-        Comments comment = commentRepository.findById(commentId).orElseThrow((NullPointerException::new));
+        Comments comment = commentRepository.findById(commentId).orElseThrow(
+                () -> new NullPointerException("댓글 존재하지 않습니다.")
+        );
 
         if(!comment.getMember().getMemberId().equals(members.getMemberId()))
-            throw new RuntimeException("작성자와 로그인 사용자가 일치하지 않습니다.");
+            return new ResponseEntity<>("작성자와 사용자가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
 
         comment.updateComment(commentRequestDto.getComment());
 
@@ -65,10 +71,12 @@ public class CommentService {
 
     public ResponseEntity<?> deleteComment(Long commentId, Members members) {
 
-        Comments comment = commentRepository.findById(commentId).orElseThrow((NullPointerException::new));
+        Comments comment = commentRepository.findById(commentId).orElseThrow(
+                () -> new NullPointerException("댓글 존재하지 않습니다.")
+        );
 
         if(!comment.getMember().getMemberId().equals(members.getMemberId()))
-            throw new RuntimeException("작성자와 로그인 사용자가 일치하지 않습니다.");
+            return new ResponseEntity<>("작성자와 사용자가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
 
         commentRepository.deleteById(commentId);
 

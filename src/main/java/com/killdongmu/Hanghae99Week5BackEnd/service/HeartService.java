@@ -22,7 +22,9 @@ public class HeartService {
     public void clickHeart(Long boardId, Members member) {
 
         // 게시글 찾기
-        Boards board = boardRepository.findById(boardId).orElseThrow();
+        Boards board = boardRepository.findById(boardId).orElseThrow(
+                () -> new NullPointerException("게시글이 존재하지 않습니다.")
+        );
 
         // 게시글 존재 여부 파악해서 좋아요 및 좋아요 취소
         if(heartRepository.existsByBoardAndMember(board, member)){

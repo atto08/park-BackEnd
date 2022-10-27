@@ -12,6 +12,9 @@ import com.killdongmu.Hanghae99Week5BackEnd.repository.CommentRepository;
 import com.killdongmu.Hanghae99Week5BackEnd.repository.HeartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -37,7 +40,7 @@ public class BoardService {
 
     public ResponseEntity<?> findBoardList() {
 
-        List<Boards> findBoardList = boardRepository.findAllByOrderByCreatedAtDesc();
+        List<Boards> findBoardList = boardRepository.findAllByOrderByBoardIdDesc();
 
         List<BoardListResponseDto> boardList = new ArrayList<>();
 
@@ -64,9 +67,22 @@ public class BoardService {
 
     }
 
+    // 게시판 무한 스크롤로 불러오기
+    @Transactional
+    public ResponseEntity<?> findBoardPageList(int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Slice<Boards> boardList = boardRepository.findAllByOrderByBoardIdDesc(pageable);
+
+        return new ResponseEntity<>(boardList, HttpStatus.OK);
+    }
+
     public ResponseEntity<?> findBoard(Long boardId) {
 
-        Boards findBoard = boardRepository.findById(boardId).orElseThrow(RuntimeException::new);
+        Boards findBoard = boardRepository.findById(boardId).orElseThrow(
+                () -> new NullPointerException("게시글이 존재하지 않습니다.")
+        );
+
         List<Hearts> heartList = heartRepository.findAllByBoard(findBoard);
 
         List<String> heartedUsernameList = new ArrayList<>();
@@ -108,10 +124,12 @@ public class BoardService {
     public ResponseEntity<?> updateBoard(BoardRequestDto boardRequestDto, Long boardId, Members members) {
 
         // Boards board = boardRepository.findById(boardId).orElseThrow(() -> new NullPointerException());
-        Boards board = boardRepository.findById(boardId).orElseThrow(NullPointerException::new);
+        Boards board = boardRepository.findById(boardId).orElseThrow(
+                () -> new NullPointerException("게시글이 존재하지 않습니다.")
+        );
 
         if(!board.getMember().getMemberId().equals(members.getMemberId()))
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("작성자와 사용자가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
 
         board.updateBoard(boardRequestDto.getTitle(), boardRequestDto.getContent());
 
@@ -122,12 +140,15 @@ public class BoardService {
     public ResponseEntity<?> deleteBoard(Long boardId, Members members) {
 
         // 게시글 삭제할 때 해당 게시글의 댓글, 좋아요 삭제
-        Boards board = boardRepository.findById(boardId).orElseThrow(RuntimeException::new);
+        Boards board = boardRepository.findById(boardId).orElseThrow(
+                () -> new NullPointerException("게시글이 존재하지 않습니다.")
+        );
+
         List<Comments> commentList = commentRepository.findAllByBoard(board);
         List<Hearts> heartList = heartRepository.findAllByBoard(board);
 
         if(!board.getMember().getMemberId().equals(members.getMemberId()))
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("작성자와 사용자가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
 
         if (commentList.size() > 0) {
             commentRepository.deleteByBoard(board);

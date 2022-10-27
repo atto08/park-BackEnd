@@ -22,6 +22,15 @@ public class BoardController {
         return boardService.findBoardList();
     }
 
+    // 게시판 전체 페이징 조회 GET /boards/pager?page=3&size=10  + Board Total Count
+    @GetMapping ("/list/pager")
+    public ResponseEntity<?> getBoardPagerList(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size) {
+        int pageTemp = page - 1;
+        return boardService.findBoardPageList(pageTemp,size);
+    }
+
     @GetMapping(value = "/detail/{board-id}")
     public ResponseEntity<?> boardInfo(@PathVariable(name = "board-id") Long boardId){
         return boardService.findBoard(boardId);
